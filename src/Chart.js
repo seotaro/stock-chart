@@ -11,7 +11,7 @@ export const Chart = ({ data }) => {
       enabled: false,
     },
     xAxis: {
-      range: 2 * 24 * 3600 * 1000
+      range: 3 * 24 * 3600 * 1000
     },
     plotOptions: {
       candlestick: {

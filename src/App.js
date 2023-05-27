@@ -21,7 +21,7 @@ function App() {
     const params = {
       symbols: ['NVDA', 'AAPL', 'MSFT', 'GOOG'],
       intervals: ['5min'],
-      outputsize: 100,
+      outputsize: 200,
       methods: ['time_series'],
     };
 
@@ -52,8 +52,9 @@ function App() {
 
           setData(result.data);
           updateLastUpdated();
+          console.log('load', (new Date()).toLocaleString());
         } else {
-          console.log(result);
+          console.log('load', (new Date()).toLocaleString(), result);
         }
       })
       .catch((error) => {
