@@ -21,7 +21,7 @@ export const Chart = ({ data }) => {
     },
     series: [{
       type: 'candlestick',
-      name: `${data.meta.symbol} Stock Price`,
+      name: 'Stock Price',
       data: data.series,
       tooltip: { valueDecimals: 2 }
     }]
