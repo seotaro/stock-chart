@@ -19,11 +19,9 @@ const useQuery = () => {
 function App() {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [data, setData] = useState(null);
-  const [current, setCurrent] = useState(0);
 
   const query = useQuery();
   const symbols = (query.get('symbols') || 'USD/JPY').split(',');
-  const slideshowInterval = query.get('slideshowInterval') || 10000;
 
   const updateLastUpdated = () => {
     setLastUpdated(new Date());
@@ -81,12 +79,6 @@ function App() {
       });
   }
 
-  useInterval(() => {
-    if (data) {
-      setCurrent((current + 1) % data.length);
-    }
-  }, slideshowInterval);
-
   useEffect(() => {
     load();
   }, []);
@@ -96,9 +88,14 @@ function App() {
   }, API_INTERVAL);
 
   return (
-    <Box sx={{ width: '100vw', height: '100vh' }}>
-      {data && <Chart data={data[current]} />}
+    <Box sx={{}}>
       <LastUpdated lastUpdated={lastUpdated} />
+
+      <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+        {data && data.map((d, i) => {
+          return <Chart key={i} data={d} />
+        })}
+      </Box>
     </Box>
   )
 }
@@ -108,8 +105,8 @@ export default App;
 // 更新時刻
 const LastUpdated = ({ lastUpdated }) => {
   return (
-    <Box style={{ position: "absolute", top: 0, right: 10, }}>
-      <Typography variant="subtitle1" sx={{ color: 'grey' }} >
+    <Box sx={{ mx: 1 }}>
+      <Typography variant="subtitle1" sx={{ color: 'grey', textAlign: 'right' }} >
         update: {moment(lastUpdated).tz('Asia/Tokyo').format()}
       </Typography>
     </Box>
