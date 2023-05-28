@@ -1,3 +1,7 @@
+
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 
@@ -30,11 +34,15 @@ export const Chart = ({ data }) => {
   }
 
   return (
-    <HighchartsReact
-      containerProps={{ style: { height: "100%" } }}
-      highcharts={Highcharts}
-      constructorType={'stockChart'}
-      options={options}
-    />
+    <Card sx={{ width: 450, m: 1 }} >
+      <CardContent sx={{ pb: 0 }} >
+        <HighchartsReact
+          containerProps={{ style: { height: "100%" } }}
+          highcharts={Highcharts}
+          constructorType={'stockChart'}
+          options={options}
+        />
+      </CardContent>
+    </Card>
   )
 }
