@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useLocation } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import moment from 'moment';
@@ -7,11 +8,22 @@ import twelvedata from "twelvedata";
 import { Chart } from './Chart';
 
 const client = twelvedata({ key: process.env.REACT_APP_TWELVEDATA_API_KEY });
+const API_INTERVAL = process.env.REACT_APP_TWELVEDATA_API_INTERVAL || 60000;
+
+console.log('API interval', API_INTERVAL / 1000, '[sec]');
+
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+}
 
 function App() {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [data, setData] = useState(null);
   const [current, setCurrent] = useState(0);
+
+  const query = useQuery();
+  const symbols = (query.get('symbols') || 'USD/JPY').split(',');
+  const slideshowInterval = query.get('slideshowInterval') || 10000;
 
   const updateLastUpdated = () => {
     setLastUpdated(new Date());
@@ -19,7 +31,7 @@ function App() {
 
   const load = () => {
     const params = {
-      symbols: ['NVDA', 'AAPL', 'MSFT', 'GOOG'],
+      symbols,
       intervals: ['5min'],
       outputsize: 200,
       methods: ['time_series'],
@@ -66,7 +78,7 @@ function App() {
     if (data) {
       setCurrent((current + 1) % data.length);
     }
-  }, 10000);
+  }, slideshowInterval);
 
   useEffect(() => {
     load();
@@ -74,7 +86,7 @@ function App() {
 
   useInterval(() => {
     load();
-  }, 20000);
+  }, API_INTERVAL);
 
   return (
     <Box sx={{ width: '100vw', height: '100vh' }}>
