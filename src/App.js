@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import twelvedata from "twelvedata";
 
 import { Chart } from './Chart';
@@ -35,6 +35,7 @@ function App() {
       intervals: ['5min'],
       outputsize: 200,
       methods: ['time_series'],
+      timezone: 'UTC',
     };
 
     client
@@ -43,7 +44,13 @@ function App() {
         if (result.status === 'ok') {
           result.data.forEach(data => {
             data.values.forEach(x => {
-              x.datetime = (new Date(x.datetime)).getTime();
+              // console.log(x.datetime, ',',
+              //   timezone, ',',
+              //   moment.utc(x.datetime).format(), ',',
+              //   moment.utc(x.datetime).tz(timezone).format(), ',',
+              //   moment.utc(x.datetime).tz('Asia/Tokyo').format(), ',',
+              // );
+              x.datetime = moment.utc(x.datetime).valueOf();
             })
             data.values.sort(function (a, b) {
               return a.datetime - b.datetime;
@@ -64,9 +71,9 @@ function App() {
 
           setData(result.data);
           updateLastUpdated();
-          console.log('load', (new Date()).toLocaleString());
+          console.log('load', moment().tz('Asia/Tokyo').format());
         } else {
-          console.log('load', (new Date()).toLocaleString(), result);
+          console.log('load', moment().tz('Asia/Tokyo').format());
         }
       })
       .catch((error) => {
@@ -103,7 +110,7 @@ const LastUpdated = ({ lastUpdated }) => {
   return (
     <Box style={{ position: "absolute", top: 0, right: 10, }}>
       <Typography variant="subtitle1" sx={{ color: 'grey' }} >
-        update: {moment(lastUpdated).format("YYYY-MM-DD HH:mm:ss")}
+        update: {moment(lastUpdated).tz('Asia/Tokyo').format()}
       </Typography>
     </Box>
   )

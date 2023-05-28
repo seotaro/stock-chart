@@ -2,6 +2,7 @@ import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 
 // グラフ
+// 横軸は UTC
 export const Chart = ({ data }) => {
   const options = {
     title: {
@@ -11,7 +12,8 @@ export const Chart = ({ data }) => {
       enabled: false,
     },
     xAxis: {
-      range: 3 * 24 * 3600 * 1000
+      range: 3 * 24 * 3600 * 1000,
+      labels: {},
     },
     plotOptions: {
       candlestick: {
