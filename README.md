@@ -25,4 +25,5 @@ yarn start
 
 ## Notes
 
-Financial Data API: [twelvedata](https://twelvedata.com/)
+- Financial Data API: [twelvedata](https://twelvedata.com/)
+- Chart: [Highcharts](https://www.highcharts.com/)
