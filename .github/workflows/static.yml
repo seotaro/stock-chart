@@ -41,7 +41,7 @@ jobs:
       - name: Install dependency
         run: yarn
       - name: Build react app
-        run: GENERATE_SOURCEMAP=false REACT_APP_ROUTE_BASENAME='stock' REACT_APP_TWELVEDATA_API_KEY=secrets.TWELVEDATA_API_KEY yarn react-scripts build
+        run: GENERATE_SOURCEMAP=false REACT_APP_ROUTE_BASENAME='stock' REACT_APP_TWELVEDATA_API_KEY=${{secrets.TWELVEDATA_API_KEY}} yarn react-scripts build
         env:
           CI: false
 
