@@ -1,4 +1,4 @@
-
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
@@ -34,15 +34,17 @@ export const Chart = ({ data }) => {
   }
 
   return (
-    <Card sx={{ width: 450, m: 1 }} >
-      <CardContent sx={{ pb: 0 }} >
-        <HighchartsReact
-          containerProps={{ style: { height: "100%" } }}
-          highcharts={Highcharts}
-          constructorType={'stockChart'}
-          options={options}
-        />
-      </CardContent>
-    </Card>
+    <Box sx={{ width: '50%' }} >
+      <Card sx={{ m: 1 }} >
+        <CardContent sx={{ pb: 0 }} >
+          <HighchartsReact
+            containerProps={{ style: { height: "100%" } }}
+            highcharts={Highcharts}
+            constructorType={'stockChart'}
+            options={options}
+          />
+        </CardContent>
+      </Card>
+    </Box>
   )
 }
