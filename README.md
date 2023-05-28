@@ -12,6 +12,13 @@ yarn
 
 ## Run
 
+create .env file
+
+```Dotenv
+REACT_APP_TWELVEDATA_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+REACT_APP_TWELVEDATA_API_INTERVAL=30000
+```
+
 ```bash
 yarn start
 ```
