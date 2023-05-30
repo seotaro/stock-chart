@@ -16,7 +16,6 @@ export const Chart = ({ data }) => {
       enabled: false,
     },
     xAxis: {
-      range: 3 * 24 * 3600 * 1000,
       labels: {},
     },
     plotOptions: {
@@ -34,7 +33,7 @@ export const Chart = ({ data }) => {
   }
 
   return (
-    <Box sx={{ width: '50%' }} >
+    <Box sx={{ width: '25%' }} >
       <Card sx={{ m: 1 }} >
         <CardContent sx={{ pb: 0 }} >
           <HighchartsReact

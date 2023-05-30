@@ -31,7 +31,7 @@ function App() {
     const params = {
       symbols,
       intervals: ['5min'],
-      outputsize: 200,
+      outputsize: 144,
       methods: ['time_series'],
       timezone: 'UTC',
     };
