@@ -8,9 +8,6 @@ import twelvedata from "twelvedata";
 import { Chart } from './Chart';
 
 const client = twelvedata({ key: process.env.REACT_APP_TWELVEDATA_API_KEY });
-const API_INTERVAL = process.env.REACT_APP_TWELVEDATA_API_INTERVAL || 60000;
-
-console.log('API interval', API_INTERVAL / 1000, '[sec]');
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -82,10 +79,6 @@ function App() {
   useEffect(() => {
     load();
   }, []);
-
-  useInterval(() => {
-    load();
-  }, API_INTERVAL);
 
   return (
     <Box sx={{}}>
