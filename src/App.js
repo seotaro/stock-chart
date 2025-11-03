@@ -8,9 +8,6 @@ import twelvedata from "twelvedata";
 import { Chart } from './Chart';
 
 const client = twelvedata({ key: process.env.REACT_APP_TWELVEDATA_API_KEY });
-const API_INTERVAL = process.env.REACT_APP_TWELVEDATA_API_INTERVAL || 60000;
-
-console.log('API interval', API_INTERVAL / 1000, '[sec]');
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -22,6 +19,8 @@ function App() {
 
   const query = useQuery();
   const symbols = (query.get('symbols') || 'USD/JPY').split(',');
+  const interval = query.get('interval') || '5min';
+  const outputsize = Number(query.get('outputsize')) || 60;
 
   const updateLastUpdated = () => {
     setLastUpdated(new Date());
@@ -30,8 +29,8 @@ function App() {
   const load = () => {
     const params = {
       symbols,
-      intervals: ['5min'],
-      outputsize: 288,
+      intervals: [interval],
+      outputsize: outputsize,
       methods: ['time_series'],
       timezone: 'UTC',
     };
@@ -82,10 +81,6 @@ function App() {
   useEffect(() => {
     load();
   }, []);
-
-  useInterval(() => {
-    load();
-  }, API_INTERVAL);
 
   return (
     <Box sx={{}}>
