@@ -19,6 +19,8 @@ function App() {
 
   const query = useQuery();
   const symbols = (query.get('symbols') || 'USD/JPY').split(',');
+  const interval = query.get('interval') || '5min';
+  const outputsize = Number(query.get('outputsize')) || 60;
 
   const updateLastUpdated = () => {
     setLastUpdated(new Date());
@@ -27,8 +29,8 @@ function App() {
   const load = () => {
     const params = {
       symbols,
-      intervals: ['5min'],
-      outputsize: 288,
+      intervals: [interval],
+      outputsize: outputsize,
       methods: ['time_series'],
       timezone: 'UTC',
     };
